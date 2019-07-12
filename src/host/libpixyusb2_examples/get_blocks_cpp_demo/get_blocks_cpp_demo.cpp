@@ -21,6 +21,13 @@
 #define XMax 165 
 #include<string>
 #include<fstream>
+#include<sstream>
+#include<cstdlib>
+#include<cstdio>
+#include<fcntl.h>
+#include<unistd.h>
+#include<sys/epoll.h>
+#include<pthread.h>
 using std::string;
 using std::ofstream;
 
