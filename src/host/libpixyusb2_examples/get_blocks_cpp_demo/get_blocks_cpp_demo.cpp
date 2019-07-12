@@ -145,7 +145,7 @@ void* threadedToggle(void *value);
 
 
 using namespace std;
-using namespace exploringBB                           
+using namespace exploringBB;                           
 Pixy2        pixy;
 static bool  run_flag = true;
 
