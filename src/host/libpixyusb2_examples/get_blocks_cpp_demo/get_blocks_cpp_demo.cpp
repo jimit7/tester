@@ -30,7 +30,7 @@
 #include<pthread.h>
 using std::string;
 using std::ofstream;
-
+using std::ostringstream
 #define GPIO_PATH "/sys/class/gpio/"
 
 namespace exploringBB {
