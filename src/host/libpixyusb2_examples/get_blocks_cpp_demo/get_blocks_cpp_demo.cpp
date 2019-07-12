@@ -114,7 +114,7 @@ GPIO::GPIO(int number) {
 	// need to give Linux time to set up the sysfs structure
 	usleep(250000); // 250ms delay
 
-
+}
 int GPIO::setDirection(GPIO_DIRECTION dir){
    switch(dir){
    case INPUT: return this->write(this->path, "direction", "in");
@@ -133,7 +133,7 @@ int GPIO::setValue(GPIO_VALUE value){
       break;
    }
    return -1;
-}
+
 }
 } 
 
