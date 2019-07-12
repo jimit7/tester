@@ -135,6 +135,7 @@ int GPIO::setValue(GPIO_VALUE value){
    return -1;
 
 }
+GPIO::~GPIO()
 } 
 
 
