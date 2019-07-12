@@ -91,6 +91,22 @@ private:
 void* threadedPoll(void *value);
 void* threadedToggle(void *value);
 
+GPIO::GPIO(int number) {
+	this->number = number;
+	this->debounceTime = 0;
+	this->togglePeriod=100;
+	this->toggleNumber=-1; //infinite number
+	this->callbackFunction = NULL;
+	this->threadRunning = false;
+
+	ostringstream s;
+	s << "gpio" << number;
+	this->name = string(s.str());
+	this->path = GPIO_PATH + this->name + "/";
+//	this->exportGPIO();
+	// need to give Linux time to set up the sysfs structure
+	usleep(250000); // 250ms delay
+}
 } 
 
 
