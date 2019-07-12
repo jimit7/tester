@@ -113,6 +113,27 @@ GPIO::GPIO(int number) {
 //	this->exportGPIO();
 	// need to give Linux time to set up the sysfs structure
 	usleep(250000); // 250ms delay
+
+
+int GPIO::setDirection(GPIO_DIRECTION dir){
+   switch(dir){
+   case INPUT: return this->write(this->path, "direction", "in");
+      break;
+   case OUTPUT:return this->write(this->path, "direction", "out");
+      break;
+   }
+   return -1;
+}
+
+int GPIO::setValue(GPIO_VALUE value){
+   switch(value){
+   case HIGH: return this->write(this->path, "value", "1");
+      break;
+   case LOW: return this->write(this->path, "value", "0");
+      break;
+   }
+   return -1;
+}
 }
 } 
 
