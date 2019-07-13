@@ -26,7 +26,7 @@
 #define Xmax 175
 #define Xmin 125
 const unsigned char symbols[5] = { 
-a,b,c,d,e
+0b00111111,0b00111110,0b00111100,0b00110000,0b00110111
 };
 
 int transfer(int fd, unsigned char send[], unsigned char rec[], int len){
