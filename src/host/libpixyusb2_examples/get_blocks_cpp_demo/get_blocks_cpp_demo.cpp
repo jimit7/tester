@@ -25,7 +25,7 @@
 #define SPI_PATH "/dev/spidev1"
 #define Xmax 175
 #define Xmin 125
-const unsigned char symbols[5] = { 
+const unsigned uint16_t symbols[5] = { 
 1010,0101,1001,0110,0000
 };
 
