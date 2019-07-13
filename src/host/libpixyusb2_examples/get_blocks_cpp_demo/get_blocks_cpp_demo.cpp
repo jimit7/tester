@@ -25,8 +25,8 @@
 #define SPI_PATH "/dev/spidev1"
 #define Xmax 175
 #define Xmin 125
-const unsigned uint16_t symbols[5] = { 
-1010,0101,1001,0110,0000
+const unsigned char symbols[5] = { 
+a,b,c,d,e
 };
 
 int transfer(int fd, unsigned char send[], unsigned char rec[], int len){
