@@ -22,7 +22,7 @@
 #include<sys/ioctl.h>
 #include<stdint.h>
 #include<linux/spi/spidev.h>
-#define SPI_PATH "/dev/spidev1"
+#define SPI_PATH "/dev/spidev1.0"
 #define XMax 175
 #define XMin 125
 const unsigned char symbols[5] = { 
