@@ -23,8 +23,8 @@
 #include<stdint.h>
 #include<linux/spi/spidev.h>
 #define SPI_PATH "/dev/spidev1"
-#define Xmax 175
-#define Xmin 125
+#define XMax 175
+#define XMin 125
 const unsigned char symbols[5] = { 
 0b00111111,0b00111110,0b00111100,0b00110000,0b00110111
 };
