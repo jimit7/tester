@@ -96,6 +96,18 @@ int main()
    unsigned char null=0x00;                // sending only a single char
    uint8_t mode = 3;                       // SPI mode 3
   int  Result;
+if ((fd = open(SPI_PATH, O_RDWR))<0){
+      perror("SPI Error: Can't open device.");
+      return -1;
+   }
+   if (ioctl(fd, SPI_IOC_WR_MODE, &mode)==-1){
+      perror("SPI: Can't set SPI mode.");
+      return -1;
+   }
+   if (ioctl(fd, SPI_IOC_RD_MODE, &mode)==-1){
+      perror("SPI: Can't get SPI mode.");
+      return -1;
+   }
 
   // Catch CTRL+C (SIGINT) signals //
   signal (SIGINT, handle_SIGINT);
@@ -158,19 +170,7 @@ while(1)
 	
   	
 
- if ((fd = open(SPI_PATH, O_RDWR))<0){
-      perror("SPI Error: Can't open device.");
-      return -1;
-   }
-   if (ioctl(fd, SPI_IOC_WR_MODE, &mode)==-1){
-      perror("SPI: Can't set SPI mode.");
-      return -1;
-   }
-   if (ioctl(fd, SPI_IOC_RD_MODE, &mode)==-1){
-      perror("SPI: Can't get SPI mode.");
-      return -1;
-   }
-
+ 
 
 
 
