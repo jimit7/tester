@@ -225,7 +225,7 @@ if (run_flag == false)
       break;
     	}
   	}
- 	close(fd);
+ 	//close(fd);
   printf ("PIXY2 Get Blocks Demo Exit\n");
 	}
 	}
