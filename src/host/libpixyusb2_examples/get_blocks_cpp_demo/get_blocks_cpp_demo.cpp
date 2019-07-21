@@ -38,11 +38,11 @@ void handle_SIGINT(int unused)
   run_flag = false;
 }
 
-int message(int client, char *message)
+int message(int client, char *msg)
 {
-   int size = strlen(message);
-   printf("Server>>>%s\n", (message+1));   // print message with new line
-   if (write(client, message, size)<0)
+   int size = strlen(msg);
+   printf("Server>>>%s\n", (msg+1));   // print message with new line
+   if (write(client, msg, size)<0)
 	{
       perror("Error: Failed to write to the client\n");
       return -1;
@@ -54,19 +54,19 @@ int message(int client, char *message)
 
 int main()
 {
-   int client;                             
-      if ((client = open("/dev/ttyO4", O_RDWR | O_NOCTTY | O_NDELAY))<0){
+   int sender;                             
+      if ((sender = open("/dev/ttyO4", O_RDWR | O_NOCTTY | O_NDELAY))<0){
       perror("UART: Failed to open the file.\n");
       return -1;
    }
 	printf ("Success in client\n");
    struct termios options;
-   tcgetattr(client, &options);
+   tcgetattr(sender, &options);
    options.c_cflag = B115200 | CS8 | CREAD | CLOCAL;
    options.c_iflag = IGNPAR | ICRNL;
-   tcflush(client, TCIFLUSH);
+   tcflush(sender, TCIFLUSH);
    fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);  // make reads non-blocking
-   tcsetattr(client, TCSANOW, &options);
+   tcsetattr(sender, TCSANOW, &options);
    
            
                        
@@ -140,7 +140,7 @@ while(1)
 
 if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
 	{
- if (message(client, 'a')<0){
+ if (message(sender,'a')<0){
       perror("UART: Failed to start server.\n");
       return -1;
    }
@@ -154,7 +154,7 @@ printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 
 if((pixy.ccc.blocks[Block_Index].m_x)>XMax)
 	{
- if (message(client, 'b')<0){
+ if (message(sender,'b')<0){
       perror("UART: Failed to start server.\n");
       return -1;
    }
@@ -168,7 +168,7 @@ printf("Right= 1001\n");
 
 if(((pixy.ccc.blocks[Block_Index].m_x)>=XMin && (pixy.ccc.blocks[Block_Index].m_x) <=XMax))
 	{
-	 if (message(client, 'c')<0){
+	 if (message(sender,'c')<0){
       perror("UART: Failed to start server.\n");
       return -1;
    }
@@ -187,7 +187,7 @@ if (run_flag == false)
       break;
     	}
   	}
- 	close(client);
+ 	close(sender);
   printf ("PIXY2 Get Blocks Demo Exit\n");
 	}
 	}
