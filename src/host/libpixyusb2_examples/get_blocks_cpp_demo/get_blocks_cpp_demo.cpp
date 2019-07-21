@@ -130,9 +130,10 @@ printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 
 if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
 	{
- if ((count = write(sender,"a",2))<0){
-      perror("UART: Failed to start server 1.\n");
-      return -1;
+	 write(sender,"a",2);
+ //if ((count = write(sender,"a",2))<0){
+   //   perror("UART: Failed to start server 1.\n");
+     // return -1;
    }
 printf("left= 0110\n");
 printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
@@ -143,10 +144,11 @@ printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 
 
 if((pixy.ccc.blocks[Block_Index].m_x)>XMax)
-	{
-  if ((count = write(sender,"b",2))<0){
-      perror("UART: Failed to start server 2.\n");
-      return -1;
+	{ 
+	write(sender,"b",2);
+ // if ((count = write(sender,"b",2))<0){
+   //   perror("UART: Failed to start server 2.\n");
+     // return -1;
    }
      
 printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
@@ -158,9 +160,10 @@ printf("Right= 1001\n");
 
 if(((pixy.ccc.blocks[Block_Index].m_x)>=XMin && (pixy.ccc.blocks[Block_Index].m_x) <=XMax))
 	{
-	 if ((count = write(sender,"c",2))<0){
-      perror("UART: Failed to start server 3.\n");
-      return -1;
+	write(sender,"c",2);
+	 //if ((count = write(sender,"c",2))<0){
+      //perror("UART: Failed to start server 3.\n");
+      //return -1;
    }
 printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 printf("forward=1010");
