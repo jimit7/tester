@@ -38,17 +38,7 @@ void handle_SIGINT(int unused)
   run_flag = false;
 }
 
-int message(int client, char* msg)
-{
-   int size = strlen(msg);
-   printf("Server>>>%s\n", (msg+1));   // print message with new line
-   if (write(client, msg, size)<0)
-	{
-      perror("Error: Failed to write to the client\n");
-      return -1;
-	}
-      return 0;                               // \r for a carriage return
-}
+
 
 
 
@@ -140,7 +130,7 @@ printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 
 if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
 	{
- if (message(sender,'a')<0){
+ if (write(sender,'a',1)<0){
       perror("UART: Failed to start server.\n");
       return -1;
    }
@@ -154,7 +144,7 @@ printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 
 if((pixy.ccc.blocks[Block_Index].m_x)>XMax)
 	{
- if (message(sender,'b')<0){
+ if (write(sender,'b',1)<0){
       perror("UART: Failed to start server.\n");
       return -1;
    }
@@ -168,7 +158,7 @@ printf("Right= 1001\n");
 
 if(((pixy.ccc.blocks[Block_Index].m_x)>=XMin && (pixy.ccc.blocks[Block_Index].m_x) <=XMax))
 	{
-	 if (message(sender,'c')<0){
+	 if (write(sender,'c',1)<0){
       perror("UART: Failed to start server.\n");
       return -1;
    }
