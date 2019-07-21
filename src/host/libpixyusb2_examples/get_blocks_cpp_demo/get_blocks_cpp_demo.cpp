@@ -55,7 +55,7 @@ int main()
    options.c_cflag = B115200 | CS8 | CREAD | CLOCAL;
    options.c_iflag = IGNPAR | ICRNL;
    tcflush(sender, TCIFLUSH);
-   fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);  // make reads non-blocking
+   //fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);  // make reads non-blocking
    tcsetattr(sender, TCSANOW, &options);
    
            
