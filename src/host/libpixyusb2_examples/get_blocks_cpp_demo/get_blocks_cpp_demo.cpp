@@ -19,37 +19,13 @@
 #include<stdio.h>
 #include<fcntl.h>
 #include<unistd.h>
-#include<sys/ioctl.h>
-#include<stdint.h>
-#include<linux/spi/spidev.h>
-#define SPI_PATH "/dev/spidev1.0"
+#include<termios.h>
+#include<string.h>
+#include<stdlib.h>
+
 #define XMax 175
 #define XMin 125
-const unsigned char symbols[5] = { 
-0b00111111,0b00111110,0b00111100,0b00110000,0b00110111
-};
 
-int transfer(int fd, unsigned char send[], unsigned char rec[], int len){
-   struct spi_ioc_transfer transfer;        //the transfer structure
-   transfer.tx_buf = (unsigned long) send;  //the buffer for sending data
-   transfer.rx_buf = (unsigned long) rec;   //the buffer for receiving data
-   transfer.len = len;                      //the length of buffer
-   transfer.speed_hz = 1000000;             //the speed in Hz
-   transfer.bits_per_word = 8;              //bits per word
-   transfer.delay_usecs = 0;                //delay in us
-   transfer.cs_change = 0;       // affects chip select after transfer
-   transfer.tx_nbits = 0;        // no. bits for writing (default 0)
-   transfer.rx_nbits = 0;        // no. bits for reading (default 0)
-   transfer.pad = 0;             // interbyte delay - check version
-
-   // send the SPI message (all of the above fields, inc. buffers)
-   int status = ioctl(fd, SPI_IOC_MESSAGE(1), &transfer);
-   if (status < 0) {
-      perror("SPI: SPI_IOC_MESSAGE Failed");
-      return -1;
-   }
-   return status;
-}
 
 Pixy2        pixy;
 static bool  run_flag = true;
@@ -61,53 +37,39 @@ void handle_SIGINT(int unused)
 
   run_flag = false;
 }
-//void tes_spi()
-//{
 
-//}
-//void  get_blocks()
-//{
-  //int  Block_Index;
-
-  // Query Pixy for blocks //
-  //pixy.ccc.getBlocks();
- 
-  // Were blocks detected? //
-  //if (pixy.ccc.numBlocks)
-  //{
-    // Blocks detected - print them! //
-
-    //printf ("Detected %d block(s)\n", pixy.ccc.numBlocks);
-
-    //for (Block_Index = 0; Block_Index < pixy.ccc.numBlocks; ++Block_Index)
-    //{
-      //printf ("  Block %d: ", Block_Index + 1);
-      //pixy.ccc.blocks[Block_Index].print();
-
-    //}
-  //}
+int message(int client, char *message)
+{
+   int size = strlen(message);
+   printf("Server>>>%s\n", (message+1));   // print message with new line
+   if (write(client, message, size)<0)
+	{
+      perror("Error: Failed to write to the client\n");
+      return -1;
+	}
+      return 0;                               // \r for a carriage return
+}
 
 
-//}
 
 int main()
 {
-   int fd;                              // file handle and loop counter
-   unsigned char null=0x00;                // sending only a single char
-   uint8_t mode = 3;                       // SPI mode 3
+   int client;                             
+      if ((client = open("/dev/ttyO4", O_RDWR | O_NOCTTY | O_NDELAY))<0){
+      perror("UART: Failed to open the file.\n");
+      return -1;
+   }
+   struct termios options;
+   tcgetattr(client, &options);
+   options.c_cflag = B115200 | CS8 | CREAD | CLOCAL;
+   options.c_iflag = IGNPAR | ICRNL;
+   tcflush(client, TCIFLUSH);
+   fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);  // make reads non-blocking
+   tcsetattr(client, TCSANOW, &options);
+   
+           
+                       
   int  Result;
-if ((fd = open(SPI_PATH, O_RDWR))<0){
-      perror("SPI Error: Can't open device.");
-      return -1;
-   }
-   if (ioctl(fd, SPI_IOC_WR_MODE, &mode)==-1){
-      perror("SPI: Can't set SPI mode.");
-      return -1;
-   }
-   if (ioctl(fd, SPI_IOC_RD_MODE, &mode)==-1){
-      perror("SPI: Can't get SPI mode.");
-      return -1;
-   }
 
   // Catch CTRL+C (SIGINT) signals //
   signal (SIGINT, handle_SIGINT);
@@ -170,17 +132,17 @@ while(1)
 	
   	
 
- 
+
+
 
 
 
 if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
 	{
-if (transfer(fd, (unsigned char*) &symbols[3], &null, 1)==-1)
-	{
-         perror("Failed to update the display");
-         return -1;
-      	}
+ if (message(client, 'a')<0){
+      perror("UART: Failed to start server.\n");
+      return -1;
+   }
 printf("left= 0110\n");
 printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 	}
@@ -191,11 +153,11 @@ printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 
 if((pixy.ccc.blocks[Block_Index].m_x)>XMax)
 	{
-if (transfer(fd, (unsigned char*) &symbols[2], &null, 1)==-1)
-	{
-         perror("Failed to update the display");
-         return -1;
-      	}
+ if (message(client, 'b')<0){
+      perror("UART: Failed to start server.\n");
+      return -1;
+   }
+     
 printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 printf("Right= 1001\n");
 	}
@@ -205,11 +167,10 @@ printf("Right= 1001\n");
 
 if(((pixy.ccc.blocks[Block_Index].m_x)>=XMin && (pixy.ccc.blocks[Block_Index].m_x) <=XMax))
 	{
-	if (transfer(fd, (unsigned char*) &symbols[0], &null, 1)==-1)
-	{
-         perror("Failed to update the display");
-         return -1;
-      	}
+	 if (message(client, 'c')<0){
+      perror("UART: Failed to start server.\n");
+      return -1;
+   }
 printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 printf("forward=1010");
 	}
@@ -225,7 +186,7 @@ if (run_flag == false)
       break;
     	}
   	}
- 	//close(fd);
+ 	close(client);
   printf ("PIXY2 Get Blocks Demo Exit\n");
 	}
 	}
