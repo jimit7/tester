@@ -38,7 +38,7 @@ void handle_SIGINT(int unused)
   run_flag = false;
 }
 
-int message(int client, char *msg)
+int message(int client, char* msg)
 {
    int size = strlen(msg);
    printf("Server>>>%s\n", (msg+1));   // print message with new line
