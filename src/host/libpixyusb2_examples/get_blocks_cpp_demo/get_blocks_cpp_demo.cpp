@@ -60,7 +60,7 @@ int main()
    
            
                        
-  int  Result;
+  int  Result,count =0;
 
   // Catch CTRL+C (SIGINT) signals //
   signal (SIGINT, handle_SIGINT);
@@ -130,7 +130,7 @@ printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 
 if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
 	{
- if ((write(sender,"a",2))<0){
+ if ((count = write(sender,"a",2))<0){
       perror("UART: Failed to start server 1.\n");
       return -1;
    }
@@ -144,7 +144,7 @@ printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 
 if((pixy.ccc.blocks[Block_Index].m_x)>XMax)
 	{
- if (write(sender,"b",2)<0){
+  if ((count = write(sender,"b",2))<0){
       perror("UART: Failed to start server 2.\n");
       return -1;
    }
@@ -158,7 +158,7 @@ printf("Right= 1001\n");
 
 if(((pixy.ccc.blocks[Block_Index].m_x)>=XMin && (pixy.ccc.blocks[Block_Index].m_x) <=XMax))
 	{
-	 if (write(sender,"c",2)<0){
+	 if ((count = write(sender,"c",2))<0){
       perror("UART: Failed to start server 3.\n");
       return -1;
    }
