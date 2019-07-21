@@ -132,7 +132,7 @@ while(1)
     	 // pixy.ccc.blocks[Block_Index].print();
 	
   	
-
+printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 
 
 
