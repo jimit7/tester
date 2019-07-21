@@ -59,6 +59,7 @@ int main()
       perror("UART: Failed to open the file.\n");
       return -1;
    }
+	printf ("Success in client\n");
    struct termios options;
    tcgetattr(client, &options);
    options.c_cflag = B115200 | CS8 | CREAD | CLOCAL;
