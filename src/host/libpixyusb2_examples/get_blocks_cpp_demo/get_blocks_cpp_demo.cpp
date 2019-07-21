@@ -12,8 +12,8 @@
 //
 // end license header
 //
-#include <iostream>
-#include <cstdio>
+
+
 #include <signal.h>
 #include "libpixyusb2.h"
 #include<stdio.h>
