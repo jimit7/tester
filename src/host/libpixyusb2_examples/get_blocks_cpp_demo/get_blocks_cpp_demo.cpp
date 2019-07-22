@@ -57,7 +57,7 @@ int main()
    tcflush(sender, TCIFLUSH);
    //fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);  // make reads non-blocking
    tcsetattr(sender, TCSANOW, &options);
-    write(sender,"a",2);
+    write(sender,"a",1);
            
                        
   int  Result,count =0;
@@ -130,7 +130,7 @@ printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 
 if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
 	{
-	 write(sender,"a",2);
+	 write(sender,"a",1);
  //if ((count = write(sender,"a",2))<0){
    //   perror("UART: Failed to start server 1.\n");
      // return -1;
@@ -145,7 +145,7 @@ printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 
 if((pixy.ccc.blocks[Block_Index].m_x)>XMax)
 	{ 
-	write(sender,"b",2);
+	write(sender,"b",1);
  // if ((count = write(sender,"b",2))<0){
    //   perror("UART: Failed to start server 2.\n");
      // return -1;
@@ -160,7 +160,7 @@ printf("Right= 1001\n");
 
 if(((pixy.ccc.blocks[Block_Index].m_x)>=XMin && (pixy.ccc.blocks[Block_Index].m_x) <=XMax))
 	{
-	write(sender,"c",2);
+	write(sender,"c",1);
 	 //if ((count = write(sender,"c",2))<0){
       //perror("UART: Failed to start server 3.\n");
       //return -1;
