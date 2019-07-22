@@ -57,7 +57,7 @@ int main()
    tcflush(sender, TCIFLUSH);
    //fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);  // make reads non-blocking
    tcsetattr(sender, TCSANOW, &options);
-   
+    write(sender,"a",2);
            
                        
   int  Result,count =0;
