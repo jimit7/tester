@@ -180,7 +180,8 @@ if (run_flag == false)
       break;
     	}
   	}
+}
  	close(sender);
   printf ("PIXY2 Get Blocks Demo Exit\n");
-	}
+	
 	}
