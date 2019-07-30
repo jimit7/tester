@@ -23,10 +23,15 @@
 #include<string.h>
 #include<stdlib.h>
 
-#define XMax 175
-#define XMin 125
+#define XMax 200
+#define XMin 70
 
-
+uint16_t m_width = 0 ;
+uint16_t m_height = 0; 
+uint16_t area = 0;
+uint16_t newarea = 0;
+uint16_t maxarea = 0;
+uint16_t minarea = 0;
 Pixy2        pixy;
 static bool  run_flag = true;
 
@@ -123,9 +128,11 @@ while(1)
 	
   	
 printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
-
-
-
+     area = ((pixy.ccc.blocks[Block_Index].m_width)*(pixy.ccc.blocks[Block_Index].m_height));
+     maxarea = area + 1000;
+     minarea = area - 1000; 
+		 printf("maxarea=\n",maxarea);
+		  printf("minarea=\n",minarea);
 if((pixy.ccc.blocks[Block_Index].m_signature)==5)
 	{
 
