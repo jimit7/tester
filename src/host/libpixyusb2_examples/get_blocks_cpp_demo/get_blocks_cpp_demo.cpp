@@ -119,7 +119,7 @@ while(1)
    	 for (Block_Index = 0; Block_Index < pixy.ccc.numBlocks; ++Block_Index)
     		{
       	printf ("  Block %d: ", Block_Index + 1);
-    	 // pixy.ccc.blocks[Block_Index].print();
+    	 pixy.ccc.blocks[Block_Index].print();
 	
   	
 printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
