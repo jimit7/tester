@@ -126,7 +126,8 @@ printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
 
 
 
-
+if((pixy.ccc.blocks[Block_Index].m_sig)==5)
+	{
 
 if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
 	{
@@ -171,7 +172,7 @@ printf("forward=1010");
 
     
 
-
+}
 
 
 if (run_flag == false)
