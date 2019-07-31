@@ -139,7 +139,7 @@ while(1)
 		 if((pixy.ccc.blocks[Block_Index].m_signature)==5)
 	{
 	newarea = (((pixy.ccc.blocks[4].m_width)*(pixy.ccc.blocks[4].m_height))
-	if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
+	if((pixy.ccc.blocks[Block_Index].m_x)<XMin))
 	{
 	write(sender,"a",1);
  	//if((count = write(sender,"a",2))<0){
@@ -154,7 +154,7 @@ while(1)
 
 
 
-	if((pixy.ccc.blocks[Block_Index].m_x)>XMax)
+	if((pixy.ccc.blocks[Block_Index].m_x)>XMax))
 	{ 
 	write(sender,"b",1);
 	 // if ((count = write(sender,"b",2))<0){
