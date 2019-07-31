@@ -110,75 +110,90 @@ int main()
 
 while(1)
   	{
-    	int  Block_Index;
+    		int  Block_Index;
 	// Query Pixy for blocks //
-  	pixy.ccc.getBlocks();
+  		pixy.ccc.getBlocks();
  
  	 // Were blocks detected? //
- 	 if (pixy.ccc.numBlocks)
+ 	 	if(pixy.ccc.numBlocks)
   		
     	// Blocks detected - print them! //
 
-   	 printf ("Detected %d block(s)\n", pixy.ccc.numBlocks);
+   	 	printf("Detected %d block(s)\n", pixy.ccc.numBlocks);
 	
-   	 for (Block_Index = 0; Block_Index < pixy.ccc.numBlocks; ++Block_Index)
+   	 	for(Block_Index = 0; Block_Index < pixy.ccc.numBlocks; ++Block_Index)
     		{
-      	printf ("  Block %d: ", Block_Index + 1);
-    	 pixy.ccc.blocks[Block_Index].print();
+      		printf ("  Block %d: ", Block_Index + 1);
+    		//pixy.ccc.blocks[Block_Index].print();
 	
   	
-printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
-     area = ((pixy.ccc.blocks[Block_Index].m_width)*(pixy.ccc.blocks[Block_Index].m_height));
-     maxarea = area + 1000;
-     minarea = area - 1000; 
-		 printf("maxarea=\n",maxarea);
-		  printf("minarea=\n",minarea);
-if((pixy.ccc.blocks[Block_Index].m_signature)==5)
+		printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
+     		area = ((pixy.ccc.blocks[4].m_width)*(pixy.ccc.blocks[4].m_height));
+    		maxarea = area + 1000;
+     		minarea = area - 1000; 
+		printf("maxarea=%d\n",maxarea);
+		printf("minarea=%d\n",minarea);
+		 
+		 
+	
+		 if((pixy.ccc.blocks[Block_Index].m_signature)==5)
 	{
-
-if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
+	newarea = (((pixy.ccc.blocks[4].m_width)*(pixy.ccc.blocks[4].m_height))
+	if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
 	{
-	 write(sender,"a",1);
- //if ((count = write(sender,"a",2))<0){
-   //   perror("UART: Failed to start server 1.\n");
-     // return -1;
-   //}
-printf("left= 0110\n");
-printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
+	write(sender,"a",1);
+ 	//if((count = write(sender,"a",2))<0){
+   	//perror("UART: Failed to start server 1.\n");
+	//return -1;
+ 	//}
+	printf("left= 0110\n");
+	printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
 	}
 
 
 
 
 
-if((pixy.ccc.blocks[Block_Index].m_x)>XMax)
+	if((pixy.ccc.blocks[Block_Index].m_x)>XMax)
 	{ 
 	write(sender,"b",1);
- // if ((count = write(sender,"b",2))<0){
-   //   perror("UART: Failed to start server 2.\n");
-     // return -1;
-   //}
+	 // if ((count = write(sender,"b",2))<0){
+  	 //   perror("UART: Failed to start server 2.\n");
+  	   // return -1;
+  	 //}
      
-printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
-printf("Right= 1001\n");
+	printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
+	printf("Right= 1001\n");
 	}
 
 
 
 
-if(((pixy.ccc.blocks[Block_Index].m_x)>=XMin && (pixy.ccc.blocks[Block_Index].m_x) <=XMax))
+	if(((pixy.ccc.blocks[Block_Index].m_x)>=XMin && (pixy.ccc.blocks[Block_Index].m_x) <=XMax))
 	{
 	write(sender,"c",1);
-	 //if ((count = write(sender,"c",2))<0){
-      //perror("UART: Failed to start server 3.\n");
-      //return -1;
-   //}
-printf("x=%d/n",(pixy.ccc.blocks[Block_Index].m_x));
-printf("forward=1010");
+	//if ((count = write(sender,"c",2))<0){
+      	//perror("UART: Failed to start server 3.\n");
+      	//return -1;
+   	//}
+	printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
+	printf("center=1010\n");
 	}
 
-    
-
+   
+	   
+	   if(newarea < minarea)
+	   {
+		   write(sender,"d",1);
+		   printf("new=%d<area=%d\n",newarea,minarea);
+		    printf("go forward\n");
+	   }
+ 	if(newarea > maxarea)
+	   {
+		   write(sender,"e",1);
+		   printf("new=%d>area=%d\n",newarea,maxarea);
+		   printf("go reverse\n");
+	   }
 }
 
 
