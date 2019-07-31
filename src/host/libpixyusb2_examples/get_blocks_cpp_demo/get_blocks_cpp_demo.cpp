@@ -128,8 +128,8 @@ while(1)
 	
   	
 		printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
-     		area = ((pixy.ccc.blocks[4].m_width)*(pixy.ccc.blocks[4].m_height));
-		printf("area=%d\n",area);
+     		area = ((pixy.ccc.blocks[Block_Index].m_width)*(pixy.ccc.blocks[Block_Index].m_height));
+		printf("area=%d\n\n",area);
     		maxarea = area + 1000;
      		minarea = area - 1000; 
 		printf("maxarea=%d\n",maxarea);
@@ -139,7 +139,8 @@ while(1)
 	
 		 if((pixy.ccc.blocks[Block_Index].m_signature)==5)
 	{
-	newarea = (((pixy.ccc.blocks[4].m_width)*(pixy.ccc.blocks[4].m_height)));
+	newarea = (((pixy.ccc.blocks[Block_Index].m_width)*(pixy.ccc.blocks[Block_Index].m_height)));
+			 printf("newarea=%d\n\n",newarea);
 	if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
 	{
 	write(sender,"a",1);
