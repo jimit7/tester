@@ -129,7 +129,7 @@ while(1)
   	
 		printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
      		area = ((pixy.ccc.blocks[4].m_width)*(pixy.ccc.blocks[4].m_height));
-		printf("area=%d\n",area)
+		printf("area=%d\n",area);
     		maxarea = area + 1000;
      		minarea = area - 1000; 
 		printf("maxarea=%d\n",maxarea);
