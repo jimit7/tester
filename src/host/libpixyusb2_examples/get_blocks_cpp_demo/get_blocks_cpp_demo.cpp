@@ -114,7 +114,7 @@ while(1)
     		int  Block_Index;
 	// Query Pixy for blocks //
   		pixy.ccc.getBlocks();
- 
+              write(sender,"f",1);
  	 // Were blocks detected? //
  	 	if(pixy.ccc.numBlocks)
   		
