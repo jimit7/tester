@@ -25,6 +25,7 @@
 
 #define XMax 200
 #define XMin 70
+#define area_d 10000
 
 uint16_t m_width = 0 ;
 uint16_t m_height = 0; 
@@ -185,13 +186,13 @@ while(1)
 
    
 	   
-	   if(newarea < minarea)
+	   if(newarea < area_d)
 	   {
 		   write(sender,"d",1);
 		   printf("new=%d<area=%d\n",newarea,minarea);
 		    printf("go forward\n");
 	   }
- 	if(newarea > maxarea)
+ 	if(newarea > area_d)
 	   {
 		   write(sender,"e",1);
 		   printf("new=%d>area=%d\n",newarea,maxarea);
