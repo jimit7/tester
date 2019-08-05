@@ -179,31 +179,33 @@ while(1)
 
 	if(((pixy.ccc.blocks[Block_Index].m_x)>=XMin && (pixy.ccc.blocks[Block_Index].m_x) <=XMax))
 	{
-	write(sender,"c",1);
+	//write(sender,"c",1);
 	//if ((count = write(sender,"c",2))<0){
       	//perror("UART: Failed to start server 3.\n");
       	//return -1;
    	//}
 	printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
 	printf("center=1010\n");
-	}
+	//}
 
    
 	   
 	   if(newarea < area_d)
 	   {
-		   write(sender,"d",1);
+		   write(sender,"c",1);
 		   printf("new=%d<area=%d\n",newarea,minarea);
 		    printf("go forward\n");
 	   }
  	if(newarea > area_d)
-	   {
+	   {		
+		 write(sender,"d",1);
 		   write(sender,"e",1);
 		   printf("new=%d>area=%d\n",newarea,maxarea);
-		   printf("go reverse\n");
+		
+		   printf("Stop than go reverse\n");
 	   }
 }
-
+		 }
 
 if (run_flag == false)
     	{
