@@ -109,16 +109,19 @@ int main()
 
   
 
-//while(1)
-  //	{
+while(1)
+  	{
     		int  Block_Index;
 	// Query Pixy for blocks //
   		pixy.ccc.getBlocks();
+	if(pixy.ccc.numBlocks == 0)
+	{
               write(sender,"f",1);
+	}
  	 // Were blocks detected? //
  	 	if(pixy.ccc.numBlocks)
-  		while(1)
-		{
+  		//while(1)
+		//{
     	// Blocks detected - print them! //
 
    	 	printf("Detected %d block(s)\n", pixy.ccc.numBlocks);
