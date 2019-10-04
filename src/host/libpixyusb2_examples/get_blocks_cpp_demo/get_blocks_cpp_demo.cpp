@@ -150,10 +150,7 @@ while(1)
 	if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
 	{
 	write(sender,"a",1);
- 	//if((count = write(sender,"a",2))<0){
-   	//perror("UART: Failed to start server 1.\n");
-	//return -1;
- 	//}
+ 	
 	printf("left= 0110\n");
 	printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
 	}
