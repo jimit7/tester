@@ -47,7 +47,6 @@ void handle_SIGINT(int unused)
 
 
 
-
 int main()
 {
    int sender;                             
@@ -55,18 +54,19 @@ int main()
       perror("UART: Failed to open the file.\n");
       return -1;
    }
-	printf ("Success in client\n");
-   struct termios options;
-   tcgetattr(sender, &options);
-   options.c_cflag = B115200 | CS8 | CREAD | CLOCAL;
-   options.c_iflag = IGNPAR | ICRNL;
-   tcflush(sender, TCIFLUSH);
-   //fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);  // make reads non-blocking
-   tcsetattr(sender, TCSANOW, &options);
-    write(sender,"a",1);
+printf ("Success in client\n");
+struct termios options;
+tcgetattr(sender, &options);
+options.c_cflag = B115200 | CS8 | CREAD | CLOCAL;
+options.c_iflag = IGNPAR | ICRNL;
+tcflush(sender, TCIFLUSH);
+//fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);  // make reads non-blocking
+tcsetattr(sender, TCSANOW, &options);
+write(sender,"a",1);
            
                        
-  int  Result,count =0;
+	
+int  Result,count =0;
 
   // Catch CTRL+C (SIGINT) signals //
   signal (SIGINT, handle_SIGINT);
@@ -86,7 +86,7 @@ int main()
       printf ("Error\n");
       printf ("pixy.init() returned %d\n", Result);
       return Result;
-    	}
+    }
 
     printf ("Success\n");
   	}
