@@ -143,30 +143,21 @@ while(1)
 		 
 		 
 	
-		 if((pixy.ccc.blocks[Block_Index].m_signature)==5)
+if((pixy.ccc.blocks[Block_Index].m_signature)==5)
 	{
 	newarea = (((pixy.ccc.blocks[Block_Index].m_width)*(pixy.ccc.blocks[Block_Index].m_height)));
-			 printf("newarea=%d\n\n",newarea);
-	if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
+	printf("newarea=%d\n\n",newarea);
+
+if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
 	{
 	write(sender,"a",1);
- 	
-	printf("left= 0110\n");
+ 	printf("left= 0110\n");
 	printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
 	}
 
-
-
-
-
-	if((pixy.ccc.blocks[Block_Index].m_x)>XMax)
+if((pixy.ccc.blocks[Block_Index].m_x)>XMax)
 	{ 
 	write(sender,"b",1);
-	 // if ((count = write(sender,"b",2))<0){
-  	 //   perror("UART: Failed to start server 2.\n");
-  	   // return -1;
-  	 //}
-     
 	printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
 	printf("Right= 1001\n");
 	}
