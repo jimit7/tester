@@ -102,10 +102,10 @@ int  Result,count =0;
 
     if (Result < 0)
     	
-	{
+  {
       printf ("pixy.getVersion() returned %d\n", Result);
       return Result;
-    }
+  }
 
     pixy.version->print();
   	
