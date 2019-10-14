@@ -53,7 +53,8 @@ int main()
       if ((sender = open("/dev/ttyO4", O_RDWR | O_NOCTTY | O_NDELAY))<0){
       perror("UART: Failed to open the file.\n");
       return -1;
-   }
+}
+	
 printf ("Success in client\n");
 struct termios options;
 tcgetattr(sender, &options);
@@ -82,14 +83,14 @@ int  Result,count =0;
     Result = pixy.init();
 
     if (Result < 0)
-    {
+  {
       printf ("Error\n");
       printf ("pixy.init() returned %d\n", Result);
       return Result;
-    }
-
-    printf ("Success\n");
-  	}
+  }
+	
+	printf ("Success\n");
+  }
 
   // Get Pixy2 Version information //
   	{
