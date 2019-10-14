@@ -91,19 +91,25 @@ int  Result,count =0;
 	
 	printf ("Success\n");
   }
+	
+	
+	
 
   // Get Pixy2 Version information //
-  	{
+  {
+	  
     Result = pixy.getVersion();
 
     if (Result < 0)
-    	{
+    	
+	{
       printf ("pixy.getVersion() returned %d\n", Result);
       return Result;
-    	}
+    }
 
     pixy.version->print();
-  	}
+  	
+  }
 
   // Set Pixy2 to color connected components program //
   pixy.changeProg("color_connected_components");
