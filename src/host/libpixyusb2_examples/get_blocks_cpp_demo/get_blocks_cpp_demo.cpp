@@ -50,10 +50,13 @@ void handle_SIGINT(int unused)
 int main()
 {
    int sender;                             
-      if ((sender = open("/dev/ttyO4", O_RDWR | O_NOCTTY | O_NDELAY))<0){
+      if ((sender = open("/dev/ttyO4", O_RDWR | O_NOCTTY | O_NDELAY))<0)
+      {
       perror("UART: Failed to open the file.\n");
       return -1;
-}
+      }
+	
+
 	
 printf ("Success in client\n");
 struct termios options;
@@ -67,7 +70,7 @@ write(sender,"a",1);
            
                        
 	
-int  Result,count =0;
+  int  Result,count =0;
 
   // Catch CTRL+C (SIGINT) signals //
   signal (SIGINT, handle_SIGINT);
@@ -89,7 +92,7 @@ int  Result,count =0;
       return Result;
   }
 	
-	printf ("Success\n");
+       printf ("Success\n");
   }
 	
 	
@@ -118,9 +121,9 @@ int  Result,count =0;
 
 while(1)
   	{
-    		int  Block_Index;
+    	int  Block_Index;
 	// Query Pixy for blocks //
-  		pixy.ccc.getBlocks();
+  	pixy.ccc.getBlocks();
 
 if(pixy.ccc.numBlocks == 0)
 	{
@@ -133,22 +136,19 @@ if(pixy.ccc.numBlocks)
   		
     	// Blocks detected - print them! //
 
-   	 	printf("Detected %d block(s)\n", pixy.ccc.numBlocks);
+   	 printf("Detected %d block(s)\n", pixy.ccc.numBlocks);
 	
-   	 	for(Block_Index = 0; Block_Index < pixy.ccc.numBlocks; ++Block_Index)
-    		{
-      		printf ("  Block %d: ", Block_Index + 1);
-    		//pixy.ccc.blocks[Block_Index].print();
-	
-  	
-		printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
-     		area = ((pixy.ccc.blocks[Block_Index].m_width)*(pixy.ccc.blocks[Block_Index].m_height));
-		printf("height=%d\nwidth=%d",pixy.ccc.blocks[Block_Index].m_height,pixy.ccc.blocks[Block_Index].m_width);
-		printf("area=%d\n\n",area);
-    		maxarea = area + 1000;
-     		minarea = area - 1000; 
-		printf("maxarea=%d\n",maxarea);
-		printf("minarea=%d\n",minarea);
+   	 for(Block_Index = 0; Block_Index < pixy.ccc.numBlocks; ++Block_Index)
+    	{
+      	printf ("  Block %d: ", Block_Index + 1);
+    	printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
+     	area = ((pixy.ccc.blocks[Block_Index].m_width)*(pixy.ccc.blocks[Block_Index].m_height));
+	printf("height=%d\nwidth=%d",pixy.ccc.blocks[Block_Index].m_height,pixy.ccc.blocks[Block_Index].m_width);
+	printf("area=%d\n\n",area);
+    	maxarea = area + 1000;
+     	minarea = area - 1000; 
+	printf("maxarea=%d\n",maxarea);
+	printf("minarea=%d\n",minarea);
 		 
 		 
 	
@@ -157,57 +157,54 @@ if((pixy.ccc.blocks[Block_Index].m_signature)==5)
 	newarea = (((pixy.ccc.blocks[Block_Index].m_width)*(pixy.ccc.blocks[Block_Index].m_height)));
 	printf("newarea=%d\n\n",newarea);
 
-if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
-	{
-	write(sender,"a",1);
- 	printf("left= 0110\n");
-	printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
-	}
+	if((pixy.ccc.blocks[Block_Index].m_x)<XMin)
+		{
+		write(sender,"a",1);
+ 		printf("left= 0110\n");
+		printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
+		}
 
-if((pixy.ccc.blocks[Block_Index].m_x)>XMax)
-	{ 
-	write(sender,"b",1);
-	printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
-	printf("Right= 1001\n");
-	}
-
-
+	if((pixy.ccc.blocks[Block_Index].m_x)>XMax)
+		{ 
+		write(sender,"b",1);
+		printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
+		printf("Right= 1001\n");
+		}
 
 
-if(((pixy.ccc.blocks[Block_Index].m_x)>=XMin && (pixy.ccc.blocks[Block_Index].m_x) <=XMax))
-	{
+
+
+	if(((pixy.ccc.blocks[Block_Index].m_x)>=XMin && (pixy.ccc.blocks[Block_Index].m_x) <=XMax))
+		{
 	
-	printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
-	printf("center=1010\n");
+		printf("x=%d\n",(pixy.ccc.blocks[Block_Index].m_x));
+		printf("center=1010\n");
 	
 
-   
-	   
-	if(newarea < area_d)
-	{
-		   write(sender,"c",1);
-		   printf("new=%d<area=%d\n",newarea,minarea);
-		    printf("go forward\n");
-	   }
+   	if(newarea < area_d)
+		{
+		write(sender,"c",1);
+		printf("new=%d<area=%d\n",newarea,minarea);
+		printf("go forward\n");
+	   	}
  	if(newarea > area_d)
-	   {		
-		 write(sender,"d",1);
-		   write(sender,"e",1);
-		   printf("new=%d>area=%d\n",newarea,maxarea);
-		
-		   printf("Stop than go reverse\n");
-	   }
-}
-		 }
+	   	{		
+		write(sender,"d",1);
+		write(sender,"e",1);
+		printf("new=%d>area=%d\n",newarea,maxarea);
+		printf("Stop than go reverse\n");
+	   	}
+		}
+		}
 
-if (run_flag == false)
-    	{
-      // Exit program loop //
-      break;
-    	}
-  	}
-}
- 	close(sender);
-  printf ("PIXY2 Get Blocks Demo Exit\n");
+	if (run_flag == false)
+    		{
+      		// Exit program loop //
+      		break;
+    		}
+  		}
+		}
+ 		close(sender);
+		 ("PIXY2 Get Blocks Demo Exit\n");
 	
-	}
+		}
